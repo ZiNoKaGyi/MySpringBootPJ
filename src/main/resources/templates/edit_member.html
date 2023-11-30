@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:replace="fragments/header"></div>
+	<h1>Edit member Informations</h1>
+	<form th:action="@{/member/edit{id}(id=${member.id})}" method="post"
+		th:object="${member}" >
+		<label>Name : </label> <input type="text" th:field="*{name}"
+			required="required">
+		<div class="invalid-feedback">Please enter a valid name!</div>
+		<br> <label>Username : </label> <input type="text"
+			th:field="*{username}" required="required">
+		<div class="invalid-feedback">Please enter a valid username!</div>
+		<br> <label>Password : </label> <input type="password"
+			th:field="*{password}" required="required">
+		<div class="invalid-feedback">Please enter a valid password!</div>
+		<br> <label>Email : </label> <input type="email"
+			th:field="*{email}" required="required">
+		<div class="invalid-feedback">Please enter a valid email!</div>
+		<br>
+		<select th:field="*{role}" required="required">
+			<option value="">Choose One</option>
+			<option value="ROLE_USER">USER</option>
+			<option value="ROLE_ADMIN">ADMIN</option>
+		</select>
+		<br>
+		 <input type="submit" value="Save">
+	</form>
+	<!-- Form Validation -->
+	<script type="text/javascript">
+		'use strict'
+		var form = document.querySelector('.needs-validation')
+		form.addEventListener('submit', function(event) {
+			if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			}
+			form.classList.add('was-validated')
+		})
+	</script>
+	<!-- End Form Validation -->
+	<div th:replace="fragments/footer"></div>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Watch</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.min.css">
+	<link rel="stylesheet" href="./bootstrap/bootstrap-icons-1.11.1">
+
+	
+
+</head>
+
+<body>
+	
+	<div th:replace="fragments/header"></div>
+
+	
+	<h1>Add new item</h1>
+	<form class="needs-validation" th:action="@{/itemsave}" method="post" th:object="${item}" enctype="multipart/form-data" novalidate>
+		<label>Name : </label> 
+		<input type="text" th:field="*{name}" required minlength="5" maxlength="50">
+		<div class="invalid-feedback">Please enter a valid name!</div>
+		<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+		<br>
+		
+		<label>Description : </label> 
+		<input type="text" th:field="*{description}" required minlength="4" maxlength="100">
+		<div class="invalid-feedback">Please enter a valid description!</div>
+		<p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
+		<br> 
+		
+		<label>Price : </label> 
+		<input type="number" th:field="*{price}" required min="0.1" step="0.1">
+		<div class="invalid-feedback">Please enter a positive numerical value!</div>
+		<p class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></p>
+		<br> 
+		
+		<label>Quantity</label> 
+		<input type="number" th:field="*{quantity}" required min="1" max="20">
+		<div class="invalid-feedback">Please enter a positive whole number!</div>
+		<p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
+		<br> 
+		
+		<select th:field="*{category}" required>
+			<option value="">Choose One</option>
+			<option th:each="category:${categoryList}" th:value="${category.id}" th:text="${category.name}"></option>
+		</select>
+		<div class="invalid-feedback">Please enter a valid category!</div>
+		<br>
+		<input type="file" accept="image/*" name="itemImage" required>
+		<div class="invalid-feedback">Please enter a valid image!</div>
+		<br>
+		<input type="submit" value="Save">
+	</form>
+
+	<div th:replace="fragments/footer"></div>
+	
+	<!-- Form Validation -->
+	<script type="text/javascript">
+		'use strict'
+		var form = document.querySelector('.needs-validation')
+		form.addEventListener('submit', function (event) {
+			if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			}
+			form.classList.add('was-validated')
+		})
+	</script>
+	<!-- End Form Validation -->
+	
+</body>
+
+</html>

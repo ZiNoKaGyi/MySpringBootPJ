@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Watch</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.min.css">
+	<link rel="stylesheet" href="./bootstrap/bootstrap-icons-1.11.1">
+	
+
+</head>
+
+<body>
+	<div th:replace="fragments/header"></div>
+	<div style="text-align: center;">
+		<h1 th:text="${item.name}"></h1>
+		<h5 th:text="${item.category.name}"></h5>
+		<img alt="item" th:src="@{uploads/items/{id}/{imgName}(id=${item.id},imgName=${item.imgName})}" width="100"
+			height="100">
+		<h5 th:text="${item.description}"></h5>
+		<h5 th:text="'$'+${item.price}"></h5>
+		<div class="h5">Instock quantity : <span th:text="${item.quantity}"></span></div>
+		<form class="needs-validation py-2" th:action="@{/cart/add/{itemId}(itemId=${item.id})}" method="post" novalidate>
+			<label>Choose Quantity : </label>
+			<input type="number" name="quantity" th:value="${item.quantity}" required min="1" th:max="${item.quantity}">
+			<div class="invalid-feedback">Please enter instock quantity!</div>
+			<button type="submit" class="btn btn-secondary">Add to cart</button>
+		</form>
+	</div>
+	<div th:replace="fragments/footer"></div>
+	
+	<!-- Form Validation -->
+	<script type="text/javascript">
+		'use strict'
+		var form = document.querySelector('.needs-validation')
+		form.addEventListener('submit', function(event) {
+			if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			}
+			form.classList.add('was-validated')
+		})
+	</script>
+	<!-- End Form Validation -->
+	
+</body>
+
+</html>

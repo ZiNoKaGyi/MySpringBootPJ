@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Insert Title Here</title>
+	<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+	<script src="/bootstrap/js/bootstrap.js"></script>
+
+	<script
+		src="https://www.paypal.com/sdk/js?client-id=AYWkKs9a_MGk9PquHJOjDFSfuL2jMhzmJUd4d3OxBRjUFa7tLjCrF6W_gwbz8Y5HRHcZUVBNaUSyT_gz&currency=USD&components=buttons&debug=true">
+		</script>
+</head>
+
+<body>
+
+	<div class="container">
+		<div th:replace="fragments/header"></div>
+		<main>
+			<div class="container">
+				<div th:text="${success}" class="text-center h2"></div>
+			</div>
+			<div class="container ">
+
+				<div class="row mb-5 text-start">
+					<div class="col-4">
+						<p style="background-color: #FDFD96">Order ID: <span th:text="${orderId}"></span><br>
+							Transaction ID: <span th:text="${transactionId}"></span></p>
+					</div>
+				</div>
+				<div class="row mb-5">
+					<!-- shopping cart -->
+					<div class="col-12">
+						<div class="container ">
+							<!-- shopping cart items header -->
+							<div class="row m-3 border-top border-bottom fs-5">
+								<div class="col-3">ITEMS</div>
+								<div class="col-3">PRICE</div>
+								<div class="col-4">QUANTITY</div>
+								<div class="col">SUBTOTAL</div>
+							</div>
+							<!-- shopping cart rows -->
+							<div class="row m-3 border-bottom" th:each="cartItem : ${cartItemList}">
+								<!-- Item name, description, image -->
+								<div class="col-3 mb-3">
+									<h5 th:text="${cartItem.item.name}"></h5>
+									<p th:text="${cartItem.item.description}"></p>
+									<img width="100px"
+										th:src="@{/uploads/items/{id}/{imageName}(id=${cartItem.item.id}, imageName=${cartItem.item.imgName})}">
+								</div>
+								<!-- Item quantity, price, links -->
+								<div class="col align-self-center" th:text="'$'+${cartItem.item.price}"></div>
+								<div class="col-4 align-self-center" th:text="'$'+${cartItem.quantity}">
+
+								</div>
+								<div class="col align-self-center" th:text="'$'+${cartItem.subtotal}"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</main>
+		<div th:replace="fragments/footer"></div>
+	</div>
+</body>
+
+</html>

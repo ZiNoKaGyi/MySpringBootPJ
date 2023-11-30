@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.min.css">
+	<link rel="stylesheet" href="./bootstrap/bootstrap-icons-1.11.1">
+	
+	<style>
+		.save{
+			width: 60px;
+			margin-top: 20px;
+		}
+		
+		.save:hover{
+			background-color: blue;
+			border-radius: 10px;
+			color: white;
+			font-weight: bolder;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/header"></div>
+
+
+	<div class="container-fluid py-3">
+
+		<div class="container col-xxl-8 px-4 py-5">
+			<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+				<div class="col-10 col-sm-8 col-lg-6">
+					<img src="./images/about.jpg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+						width="700" height="500" loading="lazy">
+				</div>
+				<div class="col-lg-6">
+					<form class="needs-validation" th:action="@{/categorysave}" method="post" th:object="${category}"
+						novalidate>
+						<label class="mx-3">Category:</label>
+						<input type="text" th:field="*{name}" minlength="3" maxlength="10" required>
+						<div class="invalid-feedback">Please enter a valid category!</div>
+						<div class="invalid-feedback">Category length should be between 3 and 10</div>
+						<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+						<br>
+						<input type="submit" value="Save" class="save">
+					</form>
+					 <div class="h-100 p-5 text-white bg-dark rounded-3 mt-5">
+                        <h2>About Us</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit eos nesciunt beatae
+                            perferendis, ratione quos ullam provident illum perspiciatis alias nobis incidunt, facilis
+                            sit ipsum, nulla accusamus. Blanditiis, pariatur deserunt!</p>
+                        
+                    </div>
+				</div>
+			</div>
+		</div>
+		
+
+		<!-- Form Validation -->
+		<script type="text/javascript">
+			'use strict'
+			var form = document.querySelector('.needs-validation')
+			form.addEventListener('submit', function (event) {
+				if (!form.checkValidity()) {
+					event.preventDefault()
+					event.stopPropagation()
+				}
+				form.classList.add('was-validated')
+			})
+		</script>
+
+		<div th:replace="fragments/footer"></div>
+
+
+</body>
+
+</html>

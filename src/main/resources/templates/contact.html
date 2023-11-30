@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<script
+		src="https://www.paypal.com/sdk/js?client-id=AYWkKs9a_MGk9PquHJOjDFSfuL2jMhzmJUd4d3OxBRjUFa7tLjCrF6W_gwbz8Y5HRHcZUVBNaUSyT_gz&currency=USD&components=buttons&debug=true">
+		</script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Watch</title>
+	<link rel="stylesheet" href="css/style.css">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+		crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.min.css">
+	<link rel="stylesheet" href="./bootstrap/bootstrap-icons-1.11.1">
+
+	<style>
+		body {
+			background-color: aqua;
+
+		}
+
+		.content {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 100%;
+			box-sizing: border-box;
+			font-family: "Poppins", sans-serif;
+
+		}
+
+		.button input:hover {
+			background-color: blue;
+			border-radius: 10px;
+			color: white;
+			font-weight: bolder;
+		}
+
+		.text-one,
+		.text-two {
+			color: blue;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/header"></div>
+
+	<div class="container">
+		<div class="content">
+			<div class="left-side">
+				<div class="address details">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+						class="bi bi-buildings-fill" viewBox="0 0 16 16">
+						<path
+							d="M15 .5a.5.5 0 0 0-.724-.447l-8 4A.5.5 0 0 0 6 4.5v3.14L.342 9.526A.5.5 0 0 0 0 10v5.5a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V14h1v1.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V.5ZM2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-1 2v1H2v-1h1Zm1 0h1v1H4v-1Zm9-10v1h-1V3h1ZM8 5h1v1H8V5Zm1 2v1H8V7h1ZM8 9h1v1H8V9Zm2 0h1v1h-1V9Zm-1 2v1H8v-1h1Zm1 0h1v1h-1v-1Zm3-2v1h-1V9h1Zm-1 2h1v1h-1v-1Zm-2-4h1v1h-1V7Zm3 0v1h-1V7h1Zm-2-2v1h-1V5h1Zm1 0h1v1h-1V5Z" />
+					</svg>
+					<div class="topic h3">Address</div>
+					<div class="text-one">No.**12,Kan Street</div>
+					<div class="text-two">Yangon</div>
+				</div>
+				<div class="phone details">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+						class="bi bi-phone-fill" viewBox="0 0 16 16">
+						<path
+							d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z" />
+					</svg>
+					<div class="topic h3">Phone</div>
+					<div class="text-one">+95912345678</div>
+					<div class="text-two">+95987654321</div>
+				</div>
+				<div class="email details">
+					<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+						class="bi bi-envelope-fill" viewBox="0 0 16 16">
+						<path
+							d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555ZM0 4.697v7.104l5.803-3.558L0 4.697ZM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586l-1.239-.757Zm3.436-.586L16 11.801V4.697l-5.803 3.546Z" />
+					</svg>
+					<div class="topic h3">Email</div>
+					<div class="text-one">watch@gmail.com</div>
+					<div class="text-two">watch@gmail.com</div>
+				</div>
+			</div>
+			<div class="right-side mx-5">
+				<div class="topic-text h1">Send us a message</div>
+				<p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Earum quod esse delectus minus adipisci eos
+					atque ut odit laboriosam ipsam, id consectetur nam explicabo repudiandae saepe sequi suscipit modi
+					veritatis.</p>
+
+				<div class="col-md-6">
+					<div class="alert alert-success">
+						<p th:text="${success}"></p>
+
+					</div>
+				</div>
+
+				<form th:action="@{/feedbacksave}" th:object="${feedback}" method="post">
+
+					<div class="form-floating mb-3">
+						<input type="email" class="form-control" th:value="${member.email}" id="floatingInput"
+							placeholder="name@example.com">
+						<label for="floatingInput">Email address</label>
+					</div>
+					<div class="form-floating mb-3">
+						<textarea th:field="*{message}" class="form-control" name="" id="" cols="10" rows="10"
+							placeholder="Enter your message"></textarea>
+						<label for="floatingInput">Text Here</label>
+					</div>
+					<div class="button">
+						<input type="submit" value="Send Now">
+
+					</div>
+					<a href="/">Go Back...</a>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer"></div>
+</body>
+
+</html>

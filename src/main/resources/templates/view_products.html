@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.css">
+	<link rel="stylesheet" href="./bootstrap/css/fontawesome.min.css">
+	<link rel="stylesheet" href="./bootstrap/bootstrap-icons-1.11.1">
+
+	
+</head>
+
+<body>
+	
+	<div th:replace="fragments/header"></div>
+	
+	<div class="h1">
+		
+	</div>
+	<a href="/itemadd" sec:authorize="hasRole('ADMIN')">Add Item</a>
+
+	<table class="table table-secondary table-hover">
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Price</th>
+			<th>Description</th>
+			<th>Quantity</th>
+			<th>Action</th>
+		</tr>
+		<tr th:each="item:${itemList}">
+			<td th:text="${item.id}"></td>
+			<td th:text="${item.name}"></td>
+			<td th:text="${item.price}"></td>
+			<td th:text="${item.description}"></td>
+			<td th:text="${item.quantity}"></td>
+			<td>
+				<a th:href="@{/itemedit{id}(id=${item.id})}">Edit</a>
+				<a th:href="@{/itemdelete{id}(id=${item.id})}">Delete</a>
+			</td>
+			
+		</tr>
+
+	</table>
+
+	<div th:replace="fragments/footer"></div>
+</body>
+
+</html>
