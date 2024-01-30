@@ -28,6 +28,8 @@ public class CartItem {
 	
 	@Transient
 	private double subtotal;
+	
+	
 	public int getId() {
 		return id;
 	}

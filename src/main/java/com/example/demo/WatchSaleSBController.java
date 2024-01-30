@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,8 @@ public class WatchSaleSBController {
 	
 	
 	@GetMapping("/")
-	public String index(Model model) {
+	public String index(Model model,Principal principal) {
+		if(principal!=null) {
 		
 		// Get currently logged in user
 				MemberDetails loggedInMember = (MemberDetails) SecurityContextHolder.getContext().getAuthentication()
@@ -92,7 +94,7 @@ public class WatchSaleSBController {
 
 //				model.addAttribute("total", total);
 				model.addAttribute("count", count);
-		
+		}
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
 		return "index";

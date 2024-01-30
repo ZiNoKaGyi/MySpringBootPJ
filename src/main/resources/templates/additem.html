@@ -28,7 +28,7 @@
 		<br>
 		
 		<label>Description : </label> 
-		<input type="text" th:field="*{description}" required minlength="4" maxlength="100">
+		<input type="text" th:field="*{description}" required minlength="4" maxlength="500">
 		<div class="invalid-feedback">Please enter a valid description!</div>
 		<p class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></p>
 		<br> 
@@ -40,7 +40,7 @@
 		<br> 
 		
 		<label>Quantity</label> 
-		<input type="number" th:field="*{quantity}" required min="1" max="20">
+		<input type="number" th:field="*{quantity}" required min="1" max="100">
 		<div class="invalid-feedback">Please enter a positive whole number!</div>
 		<p class="text-danger" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></p>
 		<br> 

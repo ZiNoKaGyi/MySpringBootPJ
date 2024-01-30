@@ -32,7 +32,7 @@
 						<h5 class="card-title" th:text="${item.name}"></h5>
 						<h5 class="card-subtitle" th:text="${item.category.name}"></h5>
 						<p class="card-text" th:text="${item.description}"></p>
-						<p class="card-text" th:text="'$'+${item.price}"></p>
+						<p class="card-text" th:text="${item.price}+'Ks'"></p>
 						<a th:href="@{/item{id}(id=${item.id})}" class="btn btn-primary">Details</a>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 				<td th:href="@{/items{id}(id=${item.id})}" th:text="${item.name}"></td>
 				<td th:text="${item.description}"></td>
 				<td th:text="${item.category.name}"></td>
-				<td th:text="${item.price}"></td>
+				<td th:text="${item.price}+'Ks'"></td>
 				<td th:text="${item.quantity}"></td>
 				<td sec:authorize="hasRole('ADMIN')"><a th:href="@{/itemedit{id}(id=${item.id})}">edit</a> <a
 						th:href="@{/item/delete/{id}(id=${item.id})}">Delete</a></td>

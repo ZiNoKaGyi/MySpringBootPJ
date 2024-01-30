@@ -30,13 +30,13 @@ public class Item {
 	
 	@NotNull
 	@NotEmpty(message="Description cannot be empty!")
-	@Size(min=5 ,max=100, message="Name length must be 4-100")
+	@Size(min=4 ,max=500, message="Name length must be 4-500")
 	private String description;
 	
 	@DecimalMin(value = "0.1",message="Price should be positive numerical value!")
 	private double price;
 	@Min(value = 1,message="Quantity should be positive whole number!")
-	@Max(value=20)
+	@Max(value=100000000)
 	private int quantity;
 	
 	private String imgName;

@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -17,25 +18,33 @@ public class Member {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@NotNull
-	@NotEmpty(message="Name cannot be empty!")
+	@NotEmpty
 	@Size(min=5 ,max=50, message="Name length must be 5-50")
 	private String name;
+	
 	@NotNull
-	@NotEmpty(message="Username cannot be empty!")
-	@Size(min=5 ,max=50, message="Username length must be 5-50")
+	@NotEmpty
+	@Size(min=4 ,max=50, message="Username length must be 5-50")
 	private String username;
+	
 	@NotNull
-	@NotEmpty(message="Password cannot be empty!")
+	@NotEmpty
 	@Size(min=8, message="Password length must be at least 8 digits!")
 	private String password;
+	
 	@NotNull
-	@NotEmpty(message="Email cannot be empty!")
+	@NotEmpty
+	@Size(min=10,max=50,message="Email cannot be empty")
 	private String email;
+	
+	
 	private String role;
 	
 	@OneToMany(mappedBy="member", cascade=CascadeType.ALL)
 	private Set<CartItem> items;
+	
 
 	public int getId() {
 		return id;

@@ -51,7 +51,7 @@
 								</div>
 								 <!--Item quantity, price, links -->
 								<div class="col align-self-center"
-									th:text="'$'+${cartItem.item.price}"></div>
+									th:text="${cartItem.item.price}+'Ks'"></div>
 								<div class="col align-self-center">
 
 									<!-- Update item quantity form 
@@ -69,7 +69,7 @@
 
 								</div>
 								<div class="col align-self-center"
-									th:text="'$'+${cartItem.subtotal}"></div>
+									th:text="${cartItem.subtotal}+'Ks'"></div>
 							</div>
 						</div>
 					</div>
@@ -93,7 +93,7 @@
 									<p>TOTAL</p>
 								</div>
 								<div class="col fs-6 text-end">
-									<p id="cartTotal" th:text="'$'+${total}"></p>
+									<p id="cartTotal" th:text="${total}+'Ks'"></p>
 								</div>
 							</div>
 							<div th:replace="fragments/paypal"></div>

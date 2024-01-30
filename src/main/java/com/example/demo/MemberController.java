@@ -3,8 +3,6 @@ package com.example.demo;
 import java.util.List;
 import java.util.Optional;
 
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,7 +18,7 @@ import jakarta.validation.Valid;
 
 @Controller
 public class MemberController {
-	
+
 	@Autowired
 	private CartItemRepository cartItemRepository;
 
@@ -30,77 +28,91 @@ public class MemberController {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	@GetMapping("/memberadd")
-	public String addMember(Model model) {
+	@Autowired
+	private OrderItemRepository orderItemRepository;
+
+	@GetMapping("/signup")
+	public String signup(Model model) {
 		model.addAttribute("member", new Member());
-		return "add_member";
+
+		List<Category> categoryList = categoryRepository.findAll();
+		model.addAttribute("categoryList", categoryList);
+
+		return "signup";
 	}
 
 	@PostMapping("/membersave")
-	public String saveMember(@Valid Member member, BindingResult bindingResult,RedirectAttributes redirectAttributes) {
+	public String saveMember(@Valid Member member, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		if (bindingResult.hasErrors()) {
-			return "add_member";
+			return "signup";
 		}
-		System.out.println(member.getRole()+"************************");
-		if(member.getRole()==null) {
+
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String encodePassword = bCryptPasswordEncoder.encode(member.getPassword());
+		member.setPassword(encodePassword);
+
+		if (member.getRole() == null) {
 			member.setRole("ROLE_USER");
 		}
-		BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-		String encodePassword =bCryptPasswordEncoder.encode(member.getPassword());
-		member.setPassword(encodePassword);
+
 		memberRepository.save(member);
-		redirectAttributes.addFlashAttribute("success","Member Registered");
+		redirectAttributes.addFlashAttribute("success", "Member Registered");
 		return "redirect:/members";
 	}
 
 	@GetMapping("/members")
 	public String viewItems(Model model) {
-		
+
 		// Get currently logged in user
-				MemberDetails loggedInMember = (MemberDetails) SecurityContextHolder.getContext().getAuthentication()
-						.getPrincipal();
-				int loggedInMemberId = loggedInMember.getMember().getId();// member id
+		MemberDetails loggedInMember = (MemberDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		int loggedInMemberId = loggedInMember.getMember().getId();// member id
 
-				// Get shopping cart items added by this user
-				// *Hint: You will need to use the method we added in the CartItemRepository
-				List<CartItem> cartItemList = cartItemRepository.findAllByMemberId(loggedInMemberId);
+		// Get shopping cart items added by this user
+		// *Hint: You will need to use the method we added in the CartItemRepository
+		List<CartItem> cartItemList = cartItemRepository.findAllByMemberId(loggedInMemberId);
 
-				// Add the shopping cart items to the model
-				model.addAttribute("cartItemList", cartItemList);
-				
-				
+		// Add the shopping cart items to the model
+		model.addAttribute("cartItemList", cartItemList);
 
-				// Calculate the total cost of all items in the shopping cart
-				// item1=>cartitem.item.price*cartitem.quantity=123*2=246;
-				// item3=>cartitem.item.price*cartitem.quantity=123*4=492;
-				// total=>738;
-				/* double total = 0; */
-				int count=0;
-				for (CartItem cartItem : cartItemList) {
+		// Calculate the total cost of all items in the shopping cart
+		// item1=>cartitem.item.price*cartitem.quantity=123*2=246;
+		// item3=>cartitem.item.price*cartitem.quantity=123*4=492;
+		// total=>738;
+		/* double total = 0; */
+		int count = 0;
+		for (CartItem cartItem : cartItemList) {
 //					cartItem.setSubtotal(cartItem.getItem().getPrice() * cartItem.getQuantity());
 //					total += cartItem.getSubtotal();
-					count++;
-				}
+			count++;
+		}
 
-				// Add the shopping cart total to the model
+		// Add the shopping cart total to the model
 
 //				model.addAttribute("total", total);
-				model.addAttribute("count", count);
+		model.addAttribute("count", count);
 		
-		Category category=new Category();
-		model.addAttribute("category",category);
+
+		Category category = new Category();
+		model.addAttribute("category", category);
+
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
+
 		List<Member> memberList = memberRepository.findAll();
 		model.addAttribute("memberList", memberList);
+
 		return "view_member";
 	}
-	
 
 	@GetMapping("/members{id}")
 	public String viewSingleitem(@PathVariable("id") Integer id, Model model) {
 		Member member = memberRepository.getReferenceById(id);
 		model.addAttribute("member", member);
+
+		List<Category> categoryList = categoryRepository.findAll();
+		model.addAttribute("categoryList", categoryList);
+
 		return "view_single_member";
 	}
 
@@ -108,13 +120,23 @@ public class MemberController {
 	public String editMember(@PathVariable("id") Integer id, Model model) {
 		Member member = memberRepository.getReferenceById(id);
 		model.addAttribute("member", member);
-		List<Member> memberList =memberRepository.findAll();
+		
+		List<Member> memberList = memberRepository.findAll();
 		model.addAttribute(memberList);
+
+		List<Category> categoryList = categoryRepository.findAll();
+		model.addAttribute("categoryList", categoryList);
+
 		return "edit_member";
 	}
 
 	@PostMapping("/member/edit{id}")
-	public String saveMember( Member member) {
+	public String saveMember(Member member) {
+
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		String encodePassword = bCryptPasswordEncoder.encode(member.getPassword());
+		member.setPassword(encodePassword);
+
 		memberRepository.save(member);
 		return "redirect:/members";
 	}

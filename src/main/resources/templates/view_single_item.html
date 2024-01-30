@@ -22,7 +22,7 @@
 		<img alt="item" th:src="@{uploads/items/{id}/{imgName}(id=${item.id},imgName=${item.imgName})}" width="100"
 			height="100">
 		<h5 th:text="${item.description}"></h5>
-		<h5 th:text="'$'+${item.price}"></h5>
+		<h5 th:text="${item.price}+'Ks'"></h5>
 		<div class="h5">Instock quantity : <span th:text="${item.quantity}"></span></div>
 		<form class="needs-validation py-2" th:action="@{/cart/add/{itemId}(itemId=${item.id})}" method="post" novalidate>
 			<label>Choose Quantity : </label>

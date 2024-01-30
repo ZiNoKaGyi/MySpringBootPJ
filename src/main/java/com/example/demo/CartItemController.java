@@ -63,6 +63,7 @@ public class CartItemController {
 		// Add the shopping cart total to the model
 
 		model.addAttribute("total", total);
+		
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
 
@@ -148,7 +149,7 @@ public class CartItemController {
 		return "redirect:/cart";
 	}
 
-	@PostMapping("/cart/process_order")
+	@PostMapping("/cartprocess_order")
 	public String processOrder(Model model, @RequestParam("cartTotal") double cartTotal,
 			@RequestParam("memberId") String memberId, @RequestParam("orderId") String orderId,
 			@RequestParam("transactionId") String transactionId) {
@@ -162,7 +163,7 @@ public class CartItemController {
 		
 		// Get member object
 		Member member=memberRepo.getReferenceById(loggedInMemberId);
-
+		
 		// Loop to iterate through all cart items
 		for (int i = 0; i < cartItemList.size(); i++) {
 
@@ -171,6 +172,9 @@ public class CartItemController {
 			int qty=cartItem.getQuantity();
 			double subtotal=cartItem.getItem().getPrice()*qty;
 			cartItem.setSubtotal(subtotal);
+			
+			
+			
 			
 			// Update item table
 			Item item=itemRepo.getReferenceById(cartItem.getItem().getId());
@@ -186,10 +190,9 @@ public class CartItemController {
 			orderItem.setSubtotal(subtotal);
 			orderItem.setTransactionId(transactionId);
 			orderItemRepository.save(orderItem);
-			
-			
-
 		}
+			
+		
 		
 		// clear cart items belonging to member
 //		cartItemRepo.deleteAllByMemberId(loggedInMemberId);

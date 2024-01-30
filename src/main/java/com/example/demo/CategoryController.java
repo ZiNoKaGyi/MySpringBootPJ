@@ -102,6 +102,8 @@ public class CategoryController {
 		return "redirect:/category";
 
 	}
+	
+	
 
 	@GetMapping("/header")
 	public String header(Model model) {
@@ -112,10 +114,25 @@ public class CategoryController {
 
 	@GetMapping("/products{id}")
 	public String productsById(@PathVariable("id") Integer id, Model model) {
+		
+		MemberDetails loggedInMember = (MemberDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		int loggedInMemberId = loggedInMember.getMember().getId();
+		
+		List<CartItem>cartItemList=cartItemRepository.findAllByMemberId(loggedInMemberId);
+		int count=0;
+		for(CartItem cartItem:cartItemList) {
+			count++;
+		}
+		
+		model.addAttribute("count",count);
+		
 		List<Item> itemList = itemRepository.findAllByCategory(categoryRepository.getReferenceById(id));
 		model.addAttribute("itemList", itemList);
-		List<Category> categoryList = categoryRepository.findAll();
+		
+		List<Category>categoryList=categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
+		
 		return "view_products";
 
 	}

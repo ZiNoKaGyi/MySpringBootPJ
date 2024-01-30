@@ -1,6 +1,6 @@
 <div class="row m-3 border-bottom fw-bold">
 	<div id="paypal-button-container"></div>
-	<form th:action="@{/cart/process_order}" method="post" id="paypalForm">
+	<form th:action="@{/cartprocess_order}" method="post" id="paypalForm">
 		<input type="hidden" name="cartTotal" id="FormcostTotal" th:value="${total}"> 
 		<input type="hidden" name="memberId" id ="memberId" th:value="${memberId}"> 
 		<input type="hidden" name="orderId" id="orderId" > 

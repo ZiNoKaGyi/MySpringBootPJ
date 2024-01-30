@@ -22,6 +22,7 @@ public class Category {
 	@NotEmpty(message = "Category cannot be empty")
 	@Size(min = 3,max = 10,message = "Category length should be between 3 and 10")
 	private String name;
+	
 	@OneToMany(mappedBy = "category")
 	private Set<Item> items;
 	public int getId() {

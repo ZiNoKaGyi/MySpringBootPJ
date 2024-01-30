@@ -11,8 +11,8 @@
 	<div class="top-nav-bar bg-light">
 
 		<div class="search-box">
-			
-			
+
+
 			<div class="dropdown mt-2" sec:authorize="isAuthenticated()">
 				<a href="#" class="text-decoration-none dropdown-toogle" data-bs-toggle="dropdown"
 					aria-expended="false"> <img alt="mdo" src="images/person.png" width="32" height="32"
@@ -23,6 +23,7 @@
 							sec:authentication="principal.member.name"></a></li>
 					<li><a class="dropdown-item text-dark fw-bolder bg-primary" href="#"
 							sec:authentication="principal.member.role"></a></li>
+							
 					<li>
 						<hr class="dropdown-divider">
 					</li>
@@ -67,7 +68,11 @@
 
 
 					<li><a href="/" style="color: black;">Home</a></li>
+					<li sec:authorize="hasRole('ADMIN')"><a href="/members" style="color:black;">Members</a></li>
 					<li><a href="/category" style="color: black;">Product</a></li>
+					<li sec:authorize="!hasRole('ADMIN')"><a href="/historyuser" style="color: black;">History</a></li>
+					<li sec:authorize="hasRole('ADMIN')"><a href="/history" style="color: black;">History</a></li>
+					<li sec:authorize="!isAuthenticated()"><a href="/login" style="color: black;">Login</a></li>
 					<li sec:authorize="!hasRole('ADMIN')" class="nav-item"><a class="nav-link" th:href="@{/cart}"><svg
 								xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 0 576 512">
 								<path
@@ -78,15 +83,10 @@
 								th:text="${count}"> <span class="visually-hidden">unread
 									messages</span>
 							</span></a></li>
-					<li><a href="/contact" style="color: black;">Contact Us</a></li>
+					<li sec:authorize="!hasRole('ADMIN')"><a href="/contact" style="color: black;">Contact Us</a></li>
 					<li sec:authorize="hasRole('ADMIN')"><a href="/feedbacks" style="color: black;">Feedback</a></li>
 					<li><a href="/about" style="color: black;">About Us</a></li>
-					<!--<li sec:authorize="!isAuthenticated()"><a th:href="@{/login}" style="color: black;">Log In</a></li>
-					<li class="dropdown-item">
-						<form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-							<button type="submit" class="btn btn-outlinne-light btn-primary me-2">Logout</button>
-						</form>
-					</li>-->
+
 
 				</ul>
 			</div>

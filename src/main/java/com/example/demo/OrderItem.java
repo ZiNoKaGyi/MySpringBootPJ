@@ -22,8 +22,10 @@ public class OrderItem {
 	@ManyToOne
 	@JoinColumn(name = "item_id",nullable = false)
 	private Item item;
+	
 	private int quantity;
 	private double subtotal;
+	
 	
 	public int getId() {
 		return id;

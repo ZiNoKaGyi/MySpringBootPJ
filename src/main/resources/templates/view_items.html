@@ -32,7 +32,7 @@
 						<h5 class="card-title" th:text="${item.name}"></h5>
 						<h5 class="card-subtitle" th:text="${item.category.name}"></h5>
 						<p class="card-text" th:text="${item.description}"></p>
-						<p class="card-text" th:text="'$'+${item.price}"></p>
+						<p class="card-text" th:text="${item.price}+'Ks'"></p>
 						<a th:href="@{/items{id}(id=${item.id})}" class="btn btn-primary">Details</a>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 			</tr>
 			<tr th:each="item:${itemList}">
 				<td th:text="${item.id}"></td>
-				<td><a th:href="@{/items{id}(id=${item.id})}" th:text="${item.name}"></a></td>
+				<td th:text="${item.name}"></td>
 				<td th:text="${item.description}"></td>
 				<td th:text="${item.category.name}"></td>
 				<td th:text="${item.price}"></td>

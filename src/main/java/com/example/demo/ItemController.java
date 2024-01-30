@@ -121,7 +121,17 @@ public class ItemController {
 	@GetMapping("/item{id}")
 	public String viewSingleitem(@PathVariable("id") Integer id, Model model) {
 		
+		MemberDetails loggedInMember = (MemberDetails) SecurityContextHolder.getContext().getAuthentication()
+				.getPrincipal();
+		int loggedInMemberId = loggedInMember.getMember().getId();
 		
+		List<CartItem>cartItemList=cartItemRepository.findAllByMemberId(loggedInMemberId);
+		int count=0;
+		for(CartItem cartItem:cartItemList) {
+			count++;
+			
+		}
+		model.addAttribute("count", count);
 		
 		Item item = itemRepository.getReferenceById(id);
 		model.addAttribute("item", item);
@@ -169,10 +179,10 @@ public class ItemController {
 		model.addAttribute("itemList", itemList);
 		List<Category> categoryList = categoryRepository.findAll();
 		model.addAttribute("categoryList", categoryList);
-		/*
-		 * Category category = categoryRepository.getReferenceById(id);
-		 * model.addAttribute("category", category);
-		 */
+		
+		  Category category = categoryRepository.getReferenceById(id);
+		  model.addAttribute("category", category);
+		 
 		return "view_items_category";
 	}
 

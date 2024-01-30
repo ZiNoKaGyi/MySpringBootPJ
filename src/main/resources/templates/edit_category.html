@@ -21,7 +21,7 @@
 
 <body>
 	<div th:replace="fragments/header"></div>
-	<form action="/category/save" method="post" th:action="@{/category/edit/{id}(id=${category.id})}"
+	<form method="post" th:action="@{/categoryedit{id}(id=${category.id})}"
 		th:object="${category}">
 		<label>Category:</label>
 		<input type="text" th:field="*{name}">
